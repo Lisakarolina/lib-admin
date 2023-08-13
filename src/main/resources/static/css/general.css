@@ -1,0 +1,36 @@
+nav .nav-item {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    padding-right:30px;
+    margin-top: 30px;
+}
+
+ul.navbar-nav {
+    list-style-type: none;
+    color: darkblue;
+}
+
+button.nav-link {
+    background: #2D2A27;
+    border:none;
+    cursor: pointer;
+}
+
+.nav-item form {
+    background: white;
+}
+
+.jumbo {
+    background-color: darkblue;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+.jumbo .input-group {
+    width: 500px;
+}
+
+.jumbo select {
+    width: 55px;
+}

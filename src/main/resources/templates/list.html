@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{main_layouts :: head(title = 'i just plugged in my title')}">
+</head>
+<body>
+
+<div th:replace="~{main_layouts :: navigation}"></div>
+<div th:replace="~{main_layouts :: jumbotron}">
+
+</div>
+
+
+
+
+<div class="container">
+
+    <div class="row">
+    <div class="col-sm-4">
+        <!-- sidebar -->
+
+            <div th:replace="~{main_layouts :: sidebar}"></div>
+
+    </div>
+
+
+    <div class="col-sm-8 book" >
+        <div class="row" th:each="book,iterStat : ${books}">
+        <div class="col-sm-2">
+            <div><span class="bookcount" th:text="${iterStat.count + pageSize * pageNo}">1</span></div>
+        </div>
+        <div class="col-sm-10">
+            <div class="title">
+                <a class="title " th:href="@{'/link/' + ${book.book_id}}" th:text="${book.title}">
+                    Title Goes Here
+                </a></div>
+            <div class="author">
+                <span class="author" th:text="${book.author}">the author</span></div>
+            </div>
+        <hr class="bg-danger border-2 border-top border-danger">
+        </div>
+    </div>
+</div>
+    <div th:replace="~{main_layouts :: pagination}"></div>
+        </div>
+
+
+
+
+</body>
+</html>
