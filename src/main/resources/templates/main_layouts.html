@@ -67,15 +67,17 @@
                 th:src="@{/images/arms_xs.jpg}">
         <h2 class="display-4">Online Library</h2>
         <p class="lead">This is a view of the contents of a library to search for books and organize reservations and check-outs </p>
+        <form th:action="@{/search}" th:object="${book}" method="post">
         <div class="input-group">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" th:field="*{term}">
             <select class="form-select" aria-label="Default select example">
-                <option selected>Title</option>
-                <option value="2">Author</option>
+                <option selected th:field="*{searchForTitle}">Title</option>
+                <option value="2" th:field="*{searchForAuthor}">Author</option>
             </select>
             </input>
             <button type="button" class="btn btn-outline-primary">search</button>
         </div>
+        </form>
     </div>
 </div>
 
@@ -90,8 +92,8 @@
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    search by access types
+                <div class="accordion-body" th:each="entry : ${accessGroups}">
+                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
@@ -102,8 +104,8 @@
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                <div class="accordion-body">
-                    Search by department type
+                <div class="accordion-body" th:each="entry : ${departmentGroups}">
+                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
@@ -114,8 +116,8 @@
                 </button>
             </h2>
             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body" th:text="${languageGroups}">
-                    search by language
+                <div class="accordion-body" th:each="entry : ${languageGroups}">
+                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
@@ -157,10 +159,6 @@
         </li>
     </ul>
 </nav>
-
-
-
-
 
 </body>
 </html>

@@ -17,6 +17,7 @@ public class Book {
     @GeneratedValue
     private Long book_id;
 
+    private String term;
     private String title;
 
     private String author;
@@ -45,6 +46,14 @@ public class Book {
 
     public void setBook_id(Long book_id) {
         this.book_id = book_id;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(Long book_id) {
+        this.term = term;
     }
 
     public String getPublication_place() {

@@ -4,9 +4,9 @@ import com.example.libadmin.domain.Book;
 import com.example.libadmin.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -39,10 +39,19 @@ public class BookController {
         model.addAttribute("pageSize", pageSize);
         try {
             model.addAttribute("languageGroups", bookService.groupBySearchField(bookService.findAll(), "language"));
-        } catch (NoSuchFieldException e) {
+            model.addAttribute("accessGroups", bookService.groupBySearchField(bookService.findAll(), "access_type"));
+            model.addAttribute("departmentGroups", bookService.groupBySearchField(bookService.findAll(), "department"));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
 
+        return "list";
+    }
+
+    @GetMapping("/search")
+    public String executeSearch(@ModelAttribute Book book, BindingResult errors, Model model) {
+        // logic to process input data
+        System.out.println(book);
         return "list";
     }
 }
