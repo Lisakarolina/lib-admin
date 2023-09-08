@@ -5,6 +5,7 @@
 <body>
 
 <div th:replace="~{main_layouts :: navigation}"></div>
+<form th:action="@{/result}" th:object="${search}" method="get">
 <div th:replace="~{main_layouts :: jumbotron}">
 
 </div>
@@ -35,16 +36,19 @@
                 </a></div>
             <div class="author">
                 <span class="author" th:text="${book.author}">the author</span></div>
+            <div class="author">
+                <span class="publication-details" th:text="${book.publication_place} + ', ' + ${book.publication_date.getYear()}">the publication details</span></div>
             </div>
         <hr class="bg-danger border-2 border-top border-danger">
         </div>
+        <div th:replace="~{main_layouts :: pagination}"></div>
     </div>
 </div>
-    <div th:replace="~{main_layouts :: pagination}"></div>
+
         </div>
 
 
 
-
+</form>
 </body>
 </html>

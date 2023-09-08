@@ -52,7 +52,7 @@ public class Book {
         return term;
     }
 
-    public void setTerm(Long book_id) {
+    public void setTerm(String term) {
         this.term = term;
     }
 
@@ -152,7 +152,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "book_id=" + book_id +
+                "book_id=" + book_id + "author=" + author + "term=" + term +
                 '}';
     }
 }

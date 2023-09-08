@@ -26,6 +26,7 @@
 </head>
 <body>
 
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg" th:fragment="navigation">
     <div class="container">
@@ -67,17 +68,17 @@
                 th:src="@{/images/arms_xs.jpg}">
         <h2 class="display-4">Online Library</h2>
         <p class="lead">This is a view of the contents of a library to search for books and organize reservations and check-outs </p>
-        <form th:action="@{/search}" th:object="${book}" method="post">
+
         <div class="input-group">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" th:field="*{term}">
-            <select class="form-select" aria-label="Default select example">
-                <option selected th:field="*{searchForTitle}">Title</option>
-                <option value="2" th:field="*{searchForAuthor}">Author</option>
+            <select class="form-select" th:field="*{searchBarFilter}" aria-label="Default select example">
+                <option selected value="title">Title</option>
+                <option value="author">Author</option>
             </select>
             </input>
-            <button type="button" class="btn btn-outline-primary">search</button>
+            <button type="submit" class="btn btn-outline-primary">search</button>
         </div>
-        </form>
+
     </div>
 </div>
 
@@ -93,31 +94,31 @@
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body" th:each="entry : ${accessGroups}">
-                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row"><input type="checkbox" name="accessTypes" th:value="${entry.getKey()}" th:checked="${search.getAccessTypes()?.contains(entry.getKey())}"   /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                     Department
                 </button>
             </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
                 <div class="accordion-body" th:each="entry : ${departmentGroups}">
-                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row"><input type="checkbox" name="departments" th:value="${entry.getKey()}" th:checked="${search.getDepartments()?.contains(entry.getKey())}" /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                     Language
                 </button>
             </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
                 <div class="accordion-body" th:each="entry : ${languageGroups}">
-                    <div class="group-row"><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row"><input type="checkbox" name="languages" th:value="${entry.getKey()}" th:checked="${search.getLanguages()?.contains(entry.getKey())}" /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
@@ -127,7 +128,7 @@
 
 <!-- variable part of pagination nav -->
 <a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
-   th:href="@{'/list/' + ${pageNum-1} + '/' + ${pageSize}}"
+   th:href="@{'/list?pageNo=' + ${pageNum-1} + '&pageSize=' + ${pageSize}}"
    th:title="${tooltip}" rel="tooltip">
     [[${label}]]
 </a>
