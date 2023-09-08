@@ -6,48 +6,38 @@
 
 <div th:replace="~{main_layouts :: navigation}"></div>
 <form th:action="@{/result}" th:object="${search}" method="get">
-<div th:replace="~{main_layouts :: jumbotron}">
-
-</div>
-
-
-
-
-<div class="container">
-
-    <div class="row">
-    <div class="col-sm-4">
-        <!-- sidebar -->
-
-            <div th:replace="~{main_layouts :: sidebar}"></div>
-
+    <div th:replace="~{main_layouts :: jumbotron}">
     </div>
 
-
-    <div class="col-sm-8 book" >
-        <div class="row" th:each="book,iterStat : ${books}">
-        <div class="col-sm-2">
-            <div><span class="bookcount" th:text="${iterStat.count + pageSize * pageNo}">1</span></div>
-        </div>
-        <div class="col-sm-10">
-            <div class="title">
-                <a class="title " th:href="@{'/link/' + ${book.book_id}}" th:text="${book.title}">
-                    Title Goes Here
-                </a></div>
-            <div class="author">
-                <span class="author" th:text="${book.author}">the author</span></div>
-            <div class="author">
-                <span class="publication-details" th:text="${book.publication_place} + ', ' + ${book.publication_date.getYear()}">the publication details</span></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <!-- sidebar -->
+                <div th:replace="~{main_layouts :: sidebar}"></div>
             </div>
-        <hr class="bg-danger border-2 border-top border-danger">
+            <div class="col-sm-8 book">
+                <div class="row" th:each="book,iterStat : ${books}">
+                    <div class="col-sm-2">
+                        <div><span class="bookcount" th:text="${iterStat.count + pageSize * pageNo}">1</span></div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="title">
+                            <a class="title " th:href="@{'/link/' + ${book.book_id}}" th:text="${book.title}">
+                                Title Goes Here
+                            </a></div>
+                        <div class="author">
+                            <span class="author" th:text="${book.author}">the author</span></div>
+                        <div class="author">
+                            <span class="publication-details"
+                                  th:text="${book.publication_place} + ', ' + ${book.publication_date.getYear()}">the publication details</span>
+                        </div>
+                    </div>
+                    <hr class="bg-danger border-2 border-top border-danger">
+                </div>
+                <div th:replace="~{main_layouts :: pagination}"></div>
+            </div>
         </div>
-        <div th:replace="~{main_layouts :: pagination}"></div>
     </div>
-</div>
-
-        </div>
-
-
 
 </form>
 </body>

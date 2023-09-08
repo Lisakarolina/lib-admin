@@ -10,11 +10,11 @@ public final class BookSpecifications {
 
     private BookSpecifications() {};
     public static Specification<Book> titleContains(String expression) {
-        return (root, query, builder) -> builder.like(root.get("title"), "%" + expression + "%");
+        return (root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + expression + "%");
     }
 
     public static Specification<Book> authorContains(String expression) {
-        return (root, query, builder) -> builder.like(root.get("author"), contains(expression));
+        return (root, query, cb) -> cb.like(cb.lower(root.get("author")), contains(expression));
     }
 
     static Specification<Book> hasAccessType(String accessType) {
@@ -42,6 +42,6 @@ public final class BookSpecifications {
     }
 
     private static String contains(String expression) {
-        return MessageFormat.format("%{0}%", expression);
+        return MessageFormat.format("%{0}%", expression.toLowerCase());
     }
 }

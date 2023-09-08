@@ -20,6 +20,15 @@ button.nav-link {
     background: white;
 }
 
+.nav-link {
+    color: blue;
+}
+
+.nav-link:hover {
+    transform: scale(1.15);
+    color: blue;
+}
+
 .jumbo {
     background-color: darkblue;
     color: white;
