@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Roboto" >
     <!-- Font Awesome (for icons) -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script type="text/javascript" th:src="@{/js/actions.js}"></script>
 </head>
 <body>
 
@@ -94,7 +95,11 @@
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body" th:each="entry : ${accessGroups}">
-                    <div class="group-row"><input type="checkbox" name="accessTypes" th:value="${entry.getKey()}" th:checked="${search.getAccessTypes()?.contains(entry.getKey())}"   /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row" th:onclick="clickRespectiveCheckbox(this)">
+                        <input onClick="event.stopPropagation();" type="checkbox" name="accessTypes" id="${entry.getKey()}" th:value="${entry.getKey()}" th:checked="${search.getAccessTypes()?.contains(entry.getKey())}"   />
+                        <div th:text="${entry.getKey()}"></div>
+                        <div th:text="${entry.getValue()}" class="badge"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,7 +111,10 @@
             </h2>
             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
                 <div class="accordion-body" th:each="entry : ${departmentGroups}">
-                    <div class="group-row"><input type="checkbox" name="departments" th:value="${entry.getKey()}" th:checked="${search.getDepartments()?.contains(entry.getKey())}" /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row" th:onclick="clickRespectiveCheckbox(this)">
+                        <input onClick="event.stopPropagation();" type="checkbox" name="departments" th:value="${entry.getKey()}" th:checked="${search.getDepartments()?.contains(entry.getKey())}" />
+                        <div th:text="${entry.getKey()}"></div>
+                        <div th:text="${entry.getValue()}" class="badge"></div></div>
                 </div>
             </div>
         </div>
@@ -118,11 +126,16 @@
             </h2>
             <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
                 <div class="accordion-body" th:each="entry : ${languageGroups}">
-                    <div class="group-row"><input type="checkbox" name="languages" th:value="${entry.getKey()}" th:checked="${search.getLanguages()?.contains(entry.getKey())}" /><div th:text="${entry.getKey()}"></div><div th:text="${entry.getValue()}" class="badge"></div></div>
+                    <div class="group-row" th:onclick="clickRespectiveCheckbox(this)">
+                        <input type="checkbox" onClick="event.stopPropagation();" name="languages" th:value="${entry.getKey()}" th:checked="${search.getLanguages()?.contains(entry.getKey())}" />
+                        <div th:text="${entry.getKey()}"></div>
+                        <div th:text="${entry.getValue()}" class="badge"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-outline-primary">Activate filter</button>
 </div>
 
 
