@@ -24,7 +24,7 @@ public class Book {
     private String publication_place;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate publication_date;
+    private LocalDate publicationDate;
 
     private Long extent;
 
@@ -80,12 +80,12 @@ public class Book {
         this.author = author;
     }
 
-    public LocalDate getPublication_date() {
-        return publication_date;
+    public LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublication_date(LocalDate publication_date) {
-        this.publication_date = publication_date;
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public Long getExtent() {
