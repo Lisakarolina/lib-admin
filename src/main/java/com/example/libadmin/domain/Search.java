@@ -5,12 +5,16 @@ import java.util.Objects;
 
 public class Search {
     private String term;
+
+    // either title or author
     private String searchBarFilter;
     private List<String> accessTypes;
 
     private List<String> departments;
 
     private List<String> languages;
+
+    private String sortCriterion;
 
     public Search() {};
 
@@ -77,5 +81,13 @@ public class Search {
         return "Search{" +
                 "term=" + term + "searchBarFilter=" + searchBarFilter + "accessTypes=" + accessTypes + "departments=" + departments +
                 '}';
+    }
+
+    public String getSortCriterion() {
+        return sortCriterion;
+    }
+
+    public void setSortCriterion(String sortCriterion) {
+        this.sortCriterion = sortCriterion;
     }
 }

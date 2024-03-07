@@ -13,6 +13,7 @@ import com.example.libadmin.service.BookSpecifications;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 // import static com.example.libadmin.service.BookSpecifications.hasOneOfDepartments;
 import static org.springframework.data.jpa.domain.Specification.where;
@@ -57,6 +58,10 @@ public class BookService {
         return bookRepository.findAll(p);
     }
 
+    public Optional<Book> findById(Long id) {
+        return bookRepository.findById(id);
+    }
+
     public Page<Book> searchByAuthor(String author, Pageable pageable) {
         return bookRepository.findByAuthorContaining(author, pageable);
     }
@@ -79,8 +84,9 @@ public class BookService {
                 .where(accessTypes == null ? null : BookSpecifications.hasParticularAccessTypes(accessTypes))
                 .and(departments == null ? null : BookSpecifications.hasParticularDepartments(departments))
                 .and(languages == null ? null : BookSpecifications.hasParticularLanguages(languages))
-                .and(author == null ? null : BookSpecifications.authorContains(author))
-                .and(title == null ? null : BookSpecifications.titleContains(title));
+                .and(author == null ? null : BookSpecifications.authorContains(author.toLowerCase()))
+                .and(title == null ? null : BookSpecifications.titleContains(title.toLowerCase()));
+        // if(p == null) return bookRepository.findAll(spec);
         return bookRepository.findAll(spec, p);
     }
 
