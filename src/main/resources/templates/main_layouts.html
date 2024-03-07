@@ -140,8 +140,8 @@
 
 
 <!-- variable part of pagination nav -->
-<a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
-   th:href="@{'/list?pageNo=' + ${pageNum-1} + '&pageSize=' + ${pageSize}}"
+<a th:fragment="paging(pageNum, label, tooltip, term, searchBarFilter, accessTypes, departments, languages, sortCriterion)" class="page-link"
+   th:href="@{/result(pageNo=${pageNum-1}, pageSize=${pageSize}, term=${term}, searchBarFilter=${searchBarFilter}, accessTypes=${accessTypes}, departments=${departments}, languages=${languages}, sortCriterion=${sortCriterion})}"
    th:title="${tooltip}" rel="tooltip">
     [[${label}]]
 </a>
@@ -150,26 +150,26 @@
 <nav aria-label="Pagination" th:fragment="pagination" th:if="${totalPages > 0}">
     <ul class="pagination justify-content-center">
         <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-            <a th:replace="main_layouts :: paging(1, '<<', 'First Page')"></a>
+            <a th:replace="main_layouts :: paging(1, '<<', 'First Page', ${term}, ${searchBarFilter}, ${accessTypes}, ${departments}, ${languages}, ${sortCriterion})"></a>
         </li>
         <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
-            <a th:replace="main_layouts :: paging(${currentPage - 1}, 'Prev', 'Previous Page')"></a>
+            <a th:replace="main_layouts :: paging(${currentPage - 1}, 'Prev', 'Previous Page', ${term}, ${searchBarFilter}, ${accessTypes}, ${departments}, ${languages}, ${sortCriterion})"></a>
         </li>
         <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
             <a class="page-link" href="#">...</a>
         </li>
         <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
             th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
-            <a th:replace="main_layouts :: paging(${page}, ${page}, 'Page ' + ${page})"></a>
+            <a th:replace="main_layouts :: paging(${page}, ${page}, 'Page ' + ${page}, ${term}, ${searchBarFilter}, ${accessTypes}, ${departments}, ${languages}, ${sortCriterion})"></a>
         </li>
         <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
             <a class="page-link" href="#">...</a>
         </li>
         <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
-            <a th:replace="main_layouts :: paging(${currentPage + 1},'Next', 'Next Page')"></a>
+            <a th:replace="main_layouts :: paging(${currentPage + 1},'Next', 'Next Page', ${term}, ${searchBarFilter}, ${accessTypes}, ${departments}, ${languages}, ${sortCriterion})"></a>
         </li>
         <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-            <a th:replace="main_layouts :: paging(${totalPages}, '>>', 'Last Page')"></a>
+            <a th:replace="main_layouts :: paging(${totalPages}, '>>', 'Last Page', ${term}, ${searchBarFilter}, ${accessTypes}, ${departments}, ${languages}, ${sortCriterion})"></a>
         </li>
     </ul>
 </nav>
