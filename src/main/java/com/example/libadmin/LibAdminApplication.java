@@ -1,6 +1,8 @@
 package com.example.libadmin;
 
 import com.example.libadmin.domain.Book;
+import com.example.libadmin.repository.RoleRepository;
+import com.example.libadmin.repository.UserRepository;
 import com.example.libadmin.service.BookService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.libadmin.domain.Role;
+import com.example.libadmin.domain.User;
 
 import java.util.List;
 import java.io.InputStream;
@@ -41,6 +46,24 @@ public class LibAdminApplication {
 			} catch (IOException e){
 				System.out.println("Unable to save book: " + e.getMessage());
 			}
+		};
+	}
+
+
+	@Bean
+	CommandLineRunner runner2(RoleRepository roleRepository, UserRepository userRepository){
+		return args -> {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String secret = encoder.encode("password");
+			// "{bcrypt}" +
+
+			// new user
+			Role userRole = new Role("ROLE_USER");
+			roleRepository.save(userRole);
+			User user = new User("user@email.com", secret, true);
+			user.addRole(userRole);
+			userRepository.save(user);
+
 		};
 	}
 

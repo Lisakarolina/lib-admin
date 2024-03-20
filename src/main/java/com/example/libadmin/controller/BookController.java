@@ -45,6 +45,7 @@ public class BookController {
         System.out.println("whole book object: " + book);
 
         model.addAttribute("book", book);
+        model.addAttribute("search", search);
 
 
         if(term != null) {
