@@ -58,6 +58,27 @@ public class User implements UserDetails {
         roles.forEach(this::addRole);
     }
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_favorites",
+            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id",referencedColumnName = "book_id")
+    )
+    private Set<Book> favorites = new HashSet<>();
+
+    public void addFavorite(Book book) {
+        favorites.add(book);
+    }
+
+    public Set<Book> getFavorites() {
+        return this.favorites;
+    }
+
+    //public void addFavorites(Set<Book> favorites) {
+      //  favorites.forEach(this::addFavorite);
+    //}
+
     public Long getId() {
         return id;
     }
