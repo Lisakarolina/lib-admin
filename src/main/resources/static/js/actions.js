@@ -21,4 +21,11 @@ function addToFavorites(elem) {
         hint.classList.remove("free");
         hint.classList.add("marked");
     }
+    saveAsFavorite(elem);
+}
+
+function saveAsFavorite(elem) {
+    const parentElement = elem.closest(".bookmark");
+    const bookID = parentElement.getAttribute("bookID");
+    fetch(`http://localhost:8080/bookmark/${bookID}`).catch(err => console.log(err));
 }
