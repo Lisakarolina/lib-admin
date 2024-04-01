@@ -1,6 +1,7 @@
 package com.example.libadmin;
 
 import com.example.libadmin.domain.Book;
+import com.example.libadmin.repository.BookRepository;
 import com.example.libadmin.repository.RoleRepository;
 import com.example.libadmin.repository.UserRepository;
 import com.example.libadmin.service.BookService;
@@ -20,6 +21,7 @@ import com.example.libadmin.domain.User;
 import java.util.List;
 import java.io.InputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @SpringBootApplication
@@ -51,7 +53,7 @@ public class LibAdminApplication {
 
 
 	@Bean
-	CommandLineRunner runner2(RoleRepository roleRepository, UserRepository userRepository){
+	CommandLineRunner runner2(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository){
 		return args -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String secret = encoder.encode("password");
@@ -62,6 +64,11 @@ public class LibAdminApplication {
 			roleRepository.save(userRole);
 			User user = new User("user@email.com", secret, true);
 			user.addRole(userRole);
+			Book favBook = bookRepository.findById(1L).orElse(null);
+			//favBook.setTitle("Favorite Book");
+			//favBook.setAuthor("Fav Author");
+			//bookRepository.save(favBook);
+			user.addFavorite(favBook);
 			userRepository.save(user);
 
 		};
