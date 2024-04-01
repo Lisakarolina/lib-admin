@@ -41,24 +41,28 @@
 
                 <!-- if user is signed in -->
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/profile}">
+                    <a class="nav-link" th:href="@{/account}">
                         <i class="fa fa-user fa-2x" aria-hidden="true" ></i> Account</a>
                 </li>
                 <li class="nav-item">
                     <form method="POST" th:action="@{/logout}" sec:authorize="isAuthenticated()">
-                        <a class="nav-link"><i class="fa fa-sign-out-alt fa-2x" aria-hidden="true" ></i> Sign Out</a>
+                        <button class="nav-link">
+                            <i class="fa fa-sign-out-alt fa-2x" aria-hidden="true" ></i> Log Out</button>
                     </form>
                 </li>
                 <!-- if user is not signed in -->
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/login}">
-                        <i class="fa fa-sign-in-alt fa-2x" aria-hidden="true" ></i> Sign In</a>
+                        <i class="fa fa-sign-in-alt fa-2x" aria-hidden="true" ></i> Log In</a>
                 </li>
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/register}">
                         <i class="fa fa-user-plus fa-2x" aria-hidden="true" ></i> Register</a>
                 </li>
             </ul>
+        </div>
+        <div class="hi-logged-in" sec:authorize="isAuthenticated()">
+            Welcome <b><span sec:authentication="name">Username</span></b>
         </div>
     </div>
 </nav>
