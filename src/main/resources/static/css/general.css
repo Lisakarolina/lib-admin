@@ -7,11 +7,11 @@ nav .nav-item {
 
 ul.navbar-nav {
     list-style-type: none;
-    color: darkblue;
+    color: blue;
 }
 
 button.nav-link {
-    background: #2D2A27;
+    color: blue;
     border:none;
     cursor: pointer;
 }
@@ -71,4 +71,16 @@ button.nav-link {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.fa-star.marked {
+    color: yellow;
+}
+
+.save-bookmark.marked {
+    visibility: hidden;
+}
+
+.fa-star {
+    cursor: pointer;
 }
