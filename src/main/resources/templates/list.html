@@ -39,8 +39,8 @@
                                   th:text="${book.publication_place} + ', ' + ${book.publicationDate.getYear()}">the publication details</span>
                         </div>
                         <div class="bookmark" th:bookID="${book.book_id}" th:onclick="addToFavorites(this)" sec:authorize="isAuthenticated()">
-                            <i th:class="${#authentication?.principal.getFavorites.contains(book)} ? 'marked fas fa-star' : 'free fas fa-star'"></i>
-                            <span th:class="${#authentication?.principal.getFavorites.contains(book)} ? 'marked save-bookmark' : 'free save-bookmark'">save as favorite</span>
+                            <i th:class="${bookmarked.contains(book)} ? 'marked fas fa-star' : 'free fas fa-star'"></i>
+                            <span th:class="${bookmarked.contains(book)} ? 'marked save-bookmark' : 'free save-bookmark'">save as favorite</span>
                         </div>
                     </div>
                     <hr class="bg-danger border-2 border-top border-danger">
