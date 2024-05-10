@@ -36,7 +36,8 @@ public class securityConfiguration {
                 .formLogin(form -> form
                 .loginPage("/login")
                                 //.successHandler(successHandler())
-                                .successHandler(new CustomAuthenticationSuccessHandler())
+                                //.successHandler(new CustomAuthenticationSuccessHandler())
+                                .defaultSuccessUrl("/list")
                 .permitAll()
                         .usernameParameter("email")
                 )

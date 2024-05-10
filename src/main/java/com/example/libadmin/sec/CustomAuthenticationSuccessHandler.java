@@ -18,10 +18,14 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                                         Authentication authentication) throws IOException, ServletException {
 
         Object redirectURLObject = request.getSession().getAttribute(REDIRECT_URL_SESSION_ATTRIBUTE_NAME);
+        System.out.println("my redirectURLObject: ");
+        System.out.println(redirectURLObject);
 
-        if(redirectURLObject != null)
+        // make sure that target url before authentication is only used if it's not register or the login/logout form (-> for example after first typing in false credentials)
+        if(redirectURLObject != null) {
             setDefaultTargetUrl(redirectURLObject.toString());
-        else{
+        }
+        else {
             setDefaultTargetUrl("/list");
         }
 
