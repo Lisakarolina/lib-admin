@@ -1,7 +1,9 @@
 package com.example.libadmin.controller;
 
+import com.example.libadmin.LastSearch;
 import com.example.libadmin.domain.Book;
 import com.example.libadmin.domain.Search;
+import com.example.libadmin.repository.UserRepository;
 import com.example.libadmin.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,34 +13,32 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class BookController {
     private BookService bookService;
+    private UserRepository userRepository;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, UserRepository userRepository) {
         this.bookService = bookService;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping("/")
-    public String list(Model model) {
-        model.addAttribute("books",bookService.findAll());
-        return "list";
-        //return "redirect:/list";
-    }
 
-    @GetMapping("/list")
-    public String getPaginatedCountries(@RequestParam(required = false) String term,
+    @GetMapping({"/", "/list"})
+    public String getBookList(@RequestParam(required = false) String term,
                                         @RequestParam(required = false) String author,
                                         @RequestParam(defaultValue = "0") int pageNo,
                                         @RequestParam(defaultValue = "10") int pageSize,
                                         Model model,
                                         @ModelAttribute Book book,
                                         @ModelAttribute Search search,
+                                        Principal principal,
                                         BindingResult errors) throws NoSuchFieldException {
-        //model.addAttribute("books",bookService.findPaginated(pageNo, pageSize));
+
         Page<Book> books;
         List<Book> booksTotal;
         System.out.println("author: " + author);
@@ -46,25 +46,14 @@ public class BookController {
 
         model.addAttribute("book", book);
         model.addAttribute("search", search);
-
-
-        if(term != null) {
-            if(author != null) {
-                System.out.println("saw a search term" + term);
-                books = bookService.searchByAuthor(term, PageRequest.of(pageNo, pageSize));
-                booksTotal = bookService.searchByAuthor(term);
-            } else {
-                System.out.println("saw a search term and search for title" + term);
-                books = bookService.searchByAuthor(term, PageRequest.of(pageNo, pageSize));
-                booksTotal = bookService.searchByAuthor(term);
-            }
-
+        if(principal != null) {
+            model.addAttribute("bookmarked", userRepository.findByUsername(principal.getName()).orElse(null).getFavorites());
         } else {
-            System.out.println("found no search term" + term);
-            books = bookService.findAll(PageRequest.of(pageNo, pageSize, Sort.by("publicationDate").descending()));
-            booksTotal = bookService.findAll();
+            model.addAttribute("bookmarked", null);
         }
 
+        books = bookService.findAll(PageRequest.of(pageNo, pageSize, Sort.by("publicationDate").descending()));
+        booksTotal = bookService.findAll();
 
         model.addAttribute("books", books.getContent());
         model.addAttribute("currentPage", books.getNumber() + 1);
@@ -72,8 +61,6 @@ public class BookController {
         model.addAttribute("totalPages", books.getTotalPages());
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNo", pageNo);
-
-
 
         try {
             model.addAttribute("languageGroups", bookService.groupBySearchField(booksTotal, "language"));
@@ -87,12 +74,6 @@ public class BookController {
         return "list";
     }
 
-    @GetMapping("/search")
-    public String executeSearch(@ModelAttribute Book book, BindingResult errors, Model model) {
-        // logic to process input data
-        System.out.println(book);
-        return "list";
-    }
 
     @GetMapping("/detail/{id}")
     public String showDetails(@PathVariable("id") Long id, Model model) {
@@ -102,7 +83,7 @@ public class BookController {
         Optional<Book> book = bookService.findById(id);
         System.out.println(book.toString());
         model.addAttribute("book", book.get());
+        model.addAttribute("backToSearchURL", LastSearch.INSTANCE.getLastSearchURL());
         return "book_details";
-        // @ModelAttribute Optional<Book> book,
     }
 }
