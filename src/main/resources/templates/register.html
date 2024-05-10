@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layouts/main_layout :: head(title = 'Springit - Register for an account')}">
+<head th:replace="~{main_layouts :: head(title = 'Register for library account')}">
 </head>
 <body>
 
-<nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+<nav th:replace="~{main_layouts :: nav}"></nav>
+<div th:replace="~{main_layouts :: mini-jumbotron}"></div>
 
 <div class="row" th:if="${success}">
     <div class="col-md-3"></div>
     <div class="col-md-6 alert alert-success" role="alert" >
-        You have successfully registered with us. Please check your email to activate your account.
+        You have successfully registered an account. You can log in now.
     </div>
     <div class="col-md-3"></div>
 </div>
 
-<!-- User Registration form -->
 <form class="form-horizontal" role="form" method="POST" th:action="@{/register}" th:object="${user}" th:if="!${success}">
     <div class="row">
         <div class="col-md-3"></div>
@@ -36,56 +35,18 @@
     </div>
     <div class="row">
         <div class="col-md-3 field-label-responsive">
-            <label for="first-name">First Name</label>
+            <label for="username">Username</label>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                     <input type="text"
-                           name="first-name"
+                           name="username"
                            class="form-control"
-                           id="first-name"
-                           placeholder="First Name"
-                           th:field="*{firstName}"
-                           required>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="last-name">Last Name</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="text"
-                           name="last-name"
-                           class="form-control"
-                           id="last-name"
-                           placeholder="Last Name"
-                           th:field="*{lastName}"
-                           required>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="alias">Alias</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                    <input type="text"
-                           name="alias"
-                           class="form-control"
-                           id="alias"
-                           placeholder="This will be your display name on links & comments"
-                           th:field="*{alias}"
+                           id="username"
+                           placeholder="This will be your display name in the application"
+                           th:field="*{username}"
                            required>
                 </div>
             </div>

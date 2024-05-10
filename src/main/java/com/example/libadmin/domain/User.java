@@ -1,6 +1,8 @@
 package com.example.libadmin.domain;
 
+import com.example.libadmin.domain.validator.PasswordsMatch;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +18,7 @@ import java.util.*;
 @Table(name= "user")
 @NoArgsConstructor
 @RequiredArgsConstructor
+@PasswordsMatch
 public class User implements UserDetails {
 
     /*public User(String email, String password, boolean enabled) {
@@ -75,6 +78,15 @@ public class User implements UserDetails {
         return this.favorites;
     }
 
+    @NonNull
+    @NotEmpty(message = "Please enter username.")
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Transient
+    @NotEmpty(message = "Please enter password confirmation")
+    private String confirmPassword;
+
     //public void addFavorites(Set<Book> favorites) {
       //  favorites.forEach(this::addFavorite);
     //}
@@ -89,7 +101,11 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
+    }
+
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     @Override
@@ -136,5 +152,13 @@ public class User implements UserDetails {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;
+    }
+
+    public void setConfirmPassword(String secret) {
+        this.confirmPassword = secret;
+    }
+
+    public String getConfirmPassword() {
+        return this.confirmPassword;
     }
 }
