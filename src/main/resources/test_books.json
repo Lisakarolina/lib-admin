@@ -368,7 +368,7 @@
     "language": "English",
     "subject_headings": ["Ancient Rome", "History"],
     "department": "History Library",
-    "availability": "available",
+    "availability": "not_available",
     "access_type": "physical"
   },
   {
@@ -404,7 +404,7 @@
     "language": "English",
     "subject_headings": ["Quantum Physics", "Particle Physics"],
     "department": "Science Library",
-    "availability": "available",
+    "availability": "not_available",
     "access_type": "physical"
   },
   {
@@ -440,7 +440,7 @@
     "language": "English",
     "subject_headings": ["Poetry", "Literary Criticism"],
     "department": "Literature Library",
-    "availability": "available",
+    "availability": "not_available",
     "access_type": "physical"
   },
   {
@@ -524,7 +524,7 @@
     "language": "English",
     "subject_headings": ["Meteorology", "Climate Science"],
     "department": "Science Library",
-    "availability": "use_in_library",
+    "availability": "not_available",
     "access_type": "online"
   },
   {
@@ -596,7 +596,7 @@
     "language": "English",
     "subject_headings": ["Wildlife", "Nature Photography"],
     "department": "Science Library",
-    "availability": "use_in_library",
+    "availability": "not_available",
     "access_type": "online"
   },
   {
