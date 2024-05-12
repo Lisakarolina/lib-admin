@@ -3,6 +3,7 @@ package com.example.libadmin.controller;
 import com.example.libadmin.domain.User;
 import com.example.libadmin.sec.CustomAuthenticationSuccessHandler;
 import com.example.libadmin.service.UserService;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,18 @@ public class LoginController {
 
         //request.getSession().setAttribute(REDIRECT_URL_SESSION_ATTRIBUTE_NAME, referer);
         return "login";
+    }
+
+    @GetMapping("/guest-login")
+    public String guestLogin(HttpServletRequest request) {
+        try {
+            request.login("user@email.com","password");
+        } catch(ServletException ex) {
+            // since auth data is hardcoded, and I'm in control of the db, no special error handling needed
+            System.out.println(ex);
+            return "login";
+        }
+        return "redirect:/list";
     }
 
 

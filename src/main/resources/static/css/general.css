@@ -119,3 +119,8 @@ button.nav-link {
     margin-top: 20px;
     margin-bottom: 40px;
 }
+
+#guest-login-link {
+    padding-bottom: 70px;
+    font-size: 20px;
+}
