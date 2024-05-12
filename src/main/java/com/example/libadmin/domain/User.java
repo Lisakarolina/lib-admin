@@ -1,6 +1,7 @@
 package com.example.libadmin.domain;
 
 import com.example.libadmin.domain.validator.PasswordsMatch;
+import com.example.libadmin.domain.validator.UsernameUnique;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -19,6 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @PasswordsMatch
+@UsernameUnique
 public class User implements UserDetails {
 
     /*public User(String email, String password, boolean enabled) {

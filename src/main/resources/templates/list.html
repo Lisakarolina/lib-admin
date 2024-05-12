@@ -16,13 +16,13 @@
                 <div th:replace="~{main_layouts :: sidebar}"></div>
             </div>
             <div class="col-sm-8 book">
-                <select class="form-select" th:field="*{sortCriterion}" aria-label="Default select example">
+                <select class="form-select" id="sortSelect" th:field="*{sortCriterion}" aria-label="Default select example">
                     <option selected value="date-desc">date descending</option>
                     <option value="publicationDate">date ascending</option>
                     <option value="author">author</option>
                     <option value="title">title</option>
                 </select>
-                <h3 th:text="${books.size() != 0} ? 'Search Results:' : 'Search returned no results.'" ></h3>
+                <h3 id="searchResultTitle" th:text="${books.size() != 0} ? 'Search Results:' : 'Search returned no results.'" ></h3>
                 <div class="row" th:each="book,iterStat : ${books}">
                     <div class="col-sm-2">
                         <div><span class="bookcount" th:text="${iterStat.count + pageSize * pageNo}">1</span></div>

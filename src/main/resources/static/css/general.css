@@ -84,3 +84,38 @@ button.nav-link {
 .fa-star {
     cursor: pointer;
 }
+
+#registerForm, #loginForm {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#registerForm .row, #loginForm .row {
+    padding-bottom: 15px;
+}
+
+#registerForm button, #loginForm button {
+    background-color: deepskyblue;
+}
+
+#registerFormTitle, #loginFormTitle {
+    margin-top: 100px;
+}
+
+#filterButton {
+    float: right;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+#sortSelect {
+    width: 180px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    margin-left: 80%;
+}
+
+#searchResultTitle {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
